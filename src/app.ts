@@ -7,7 +7,7 @@ class App {
     public app: GraphQLServer;
     constructor(){
         this.app = new GraphQLServer({
-
+            
         });
         this.middlewares();
     }
