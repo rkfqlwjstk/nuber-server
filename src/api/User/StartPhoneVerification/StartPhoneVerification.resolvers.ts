@@ -1,4 +1,5 @@
 import Verification from '../../../entities/Verification';
+import { sendVerificationSMS } from '../../../utils/sendSMS';
 import { StartPhoneVerificationMutationArgs, StartPhoneVerificationResponse } from 'src/types/graph';
 import { Resolvers } from 'src/types/resolvers';
 
@@ -20,6 +21,11 @@ const resolvers: Resolvers = {
             payload: phoneNumber,
             target: "PHONE"
           }).save();
+          await sendVerificationSMS(newVerification.payload, newVerification.key);
+          return {
+            ok: true,
+            error: null
+          };
         } catch (error) {
           return {
             ok: false,
